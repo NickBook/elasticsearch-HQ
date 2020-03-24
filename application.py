@@ -36,7 +36,7 @@ if os.environ.get('HQ_DEBUG') == 'True':
     
 
 # Route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
+@application.route('/login', methods=['GET', 'POST'])
 def login():
 	print("Starting login")
 	error = None
