@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask
 import os
 
 # noinspection PyUnresolvedReferences
@@ -8,22 +8,8 @@ from elastichq.globals import init_cache, init_database, init_log, init_marshmal
 
 __author__ = 'royrusso'
 
-# Route for handling the login page logic
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	print("Starting login")
-	error = None
-	if request.method == 'POST':
-		print("Processing login request")
-		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-			error = 'Invalid Credentials. Please try again.'
-		else:
-			return redirect('147.135.45.36:5000')
-	return render_template('login.html', error=error)
-
-
 def create_app(env='PROD'):
-    app = Flask(__name__)
+    # app = Flask(__name__)
 
     if env.lower() == 'prod':
         app.config.from_object(ProdSettings())
@@ -57,7 +43,5 @@ def create_app(env='PROD'):
     socketio = init_socketio(app)
 
     init_task_pool(socketio)
-
-
 
     return app
