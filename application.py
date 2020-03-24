@@ -98,4 +98,5 @@ def run_application():
 
 if __name__ == '__main__':
     # Set up the command-line options
+    application.run(debug=True)
     print("main")
