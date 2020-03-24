@@ -50,21 +50,6 @@ def login():
 
 def run_application():
     print('Routing to main')
-    if is_gunicorn:
-        if options.debug:
-            config = find_config('logger_debug.json')
-            logging.config.dictConfig(config)
-
-        # we set reloader False so gunicorn doesn't call two instances of all the Flask init functions.
-        socketio.run(application, host=options.host, port=options.port, debug=options.debug, use_reloader=False)
-    else:
-        if options.debug:
-            config = find_config('logger_debug.json')
-            logging.config.dictConfig(config)
-        socketio.run(application, host=options.host, port=options.port, debug=options.debug)
-
-if __name__ == '__main__':
-    # Set up the command-line options
     parser = optparse.OptionParser()
     parser.add_option("-H", "--host",
                       help="Hostname of the Flask app " + \
@@ -98,3 +83,19 @@ if __name__ == '__main__':
     application.config['VERIFY_CERTS'] = os.environ.get('HQ_VERIFY_CERTS', options.verify_certs)
     application.config['CLIENT_KEY'] = os.environ.get('CLIENT_KEY', options.client_key)
     application.config['CLIENT_CERT'] = os.environ.get('CLIENT_CERT', options.client_cert)
+    if is_gunicorn:
+        if options.debug:
+            config = find_config('logger_debug.json')
+            logging.config.dictConfig(config)
+
+        # we set reloader False so gunicorn doesn't call two instances of all the Flask init functions.
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug, use_reloader=False)
+    else:
+        if options.debug:
+            config = find_config('logger_debug.json')
+            logging.config.dictConfig(config)
+        socketio.run(application, host=options.host, port=options.port, debug=options.debug)
+
+if __name__ == '__main__':
+    # Set up the command-line options
+    print("main")
