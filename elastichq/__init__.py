@@ -9,7 +9,7 @@ from elastichq.globals import init_cache, init_database, init_log, init_marshmal
 __author__ = 'royrusso'
 
 # Route for handling the login page logic
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 	print("Starting login")
 	error = None
@@ -18,8 +18,8 @@ def login():
 		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
 			error = 'Invalid Credentials. Please try again.'
 		else:
-			return redirect(url_for('home'))
-	return create_app()
+			return redirect('147.135.45.36:5000')
+	return render_template('login.html', error=error)
 
 
 def create_app(env='PROD'):
